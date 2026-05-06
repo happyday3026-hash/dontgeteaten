@@ -390,6 +390,17 @@ body::before {
   position: relative;
   overflow: hidden;
 }
+.char-img-frame.has-image {
+  background: var(--bg-card);
+  padding: 0;
+}
+.char-img-frame.has-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: zoom-in;
+  display: block;
+}
 .char-img-icon { font-size: 64px; opacity: 0.4; }
 .char-img-text {
   font-size: 12px;
@@ -1188,9 +1199,8 @@ body::before {
       </div>
 
       <div class="char-card">
-        <div class="char-img-frame" id="char-zaid">
-          <div class="char-img-icon">🦊</div>
-          <div class="char-img-text">자이드 사진</div>
+        <div class="char-img-frame has-image" id="char-zaid">
+          <img src="https://raw.githubusercontent.com/happyday3026-hash/dontgeteaten/main/자이드메인.jpg" alt="자이드" onclick="openLightbox(this.src)">
         </div>
         <div class="char-body">
           <div class="char-name">자이드 <span class="age">25세</span></div>
@@ -1213,9 +1223,8 @@ body::before {
       </div>
 
       <div class="char-card">
-        <div class="char-img-frame" id="char-khalid">
-          <div class="char-img-icon">🦅</div>
-          <div class="char-img-text">칼리드 사진</div>
+        <div class="char-img-frame has-image" id="char-khalid">
+          <img src="https://raw.githubusercontent.com/happyday3026-hash/dontgeteaten/main/칼리드메인.jpg" alt="칼리드" onclick="openLightbox(this.src)">
         </div>
         <div class="char-body">
           <div class="char-name">칼리드 <span class="age">28세</span></div>
@@ -1238,9 +1247,8 @@ body::before {
       </div>
 
       <div class="char-card">
-        <div class="char-img-frame" id="char-karim">
-          <div class="char-img-icon">🐪</div>
-          <div class="char-img-text">카림 사진</div>
+        <div class="char-img-frame has-image" id="char-karim">
+          <img src="https://raw.githubusercontent.com/happyday3026-hash/dontgeteaten/main/카림메인.jpg" alt="카림" onclick="openLightbox(this.src)">
         </div>
         <div class="char-body">
           <div class="char-name">카림 <span class="age">31세</span></div>
