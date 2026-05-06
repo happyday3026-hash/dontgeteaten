@@ -1,0 +1,1877 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>잡혀먹지 마!</title>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Dodum&family=Jua&family=Sunflower:wght@300;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-paper: #f5e6d3;
+  --bg-card: #faf0e0;
+  --bg-warm: #f8e4c8;
+  --bg-dark: #e8d3b5;
+  --gold: #d4a017;
+  --gold-bright: #e8b547;
+  --gold-dim: #b8881a;
+  --copper: #c8956d;
+  --brown: #a0612c;
+  --brown-deep: #6b3e1a;
+  --text: #4a2f1a;
+  --text-mid: #8b6f47;
+  --text-bright: #c8702c;
+  --text-dim: #a08566;
+  --tape: #f4d99a;
+  --tape-pink: #f4b5a8;
+  --mint: #a8d5ba;
+  --border: #d8c0a0;
+  --border-soft: #e8d8c0;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg-paper);
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(212,160,23,0.04) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(200,149,109,0.06) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(160,97,44,0.02) 0%, transparent 60%);
+  color: var(--text);
+  font-family: 'Gowun Dodum', 'Sunflower', sans-serif;
+  font-size: 16px;
+  line-height: 1.85;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: 0.02em;
+}
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 15% 25%, rgba(160,97,44,0.15), transparent),
+    radial-gradient(1px 1px at 65% 45%, rgba(212,160,23,0.18), transparent),
+    radial-gradient(1px 1px at 35% 75%, rgba(200,149,109,0.15), transparent),
+    radial-gradient(1.5px 1.5px at 85% 15%, rgba(160,97,44,0.12), transparent),
+    radial-gradient(1.5px 1.5px at 25% 95%, rgba(212,160,23,0.12), transparent);
+  pointer-events: none; z-index: 0;
+  opacity: 0.6;
+}
+
+.hl { color: var(--text-bright); font-weight: 700; }
+.hl-gold { color: var(--gold); font-weight: 700; }
+
+.app { max-width: 460px; margin: 0 auto; position: relative; z-index: 1; padding-bottom: 80px; }
+.section { display: none; }
+.section.active { display: block; }
+
+.bgm-bar {
+  background: var(--bg-card);
+  padding: 10px 16px;
+  border-bottom: 2px dashed var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.bgm-icon { font-size: 14px; color: var(--gold); }
+.bgm-title { font-size: 12px; color: var(--text-mid); font-style: italic; flex: 1; font-family: 'Sunflower', sans-serif; }
+.bgm-btn {
+  background: var(--gold);
+  border: none;
+  color: white;
+  font-family: 'Jua', sans-serif;
+  font-size: 12px;
+  padding: 6px 14px;
+  cursor: pointer;
+  border-radius: 20px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.hero { text-align: center; padding: 28px 18px 36px; position: relative; }
+.hero-wrap {
+  background: var(--bg-card);
+  border: 2px solid var(--brown);
+  border-radius: 16px;
+  padding: 36px 22px 32px;
+  position: relative;
+  box-shadow: 4px 4px 0 var(--gold-dim), 6px 6px 0 var(--brown-deep);
+  transform: rotate(-0.3deg);
+}
+.hero-tape-tl, .hero-tape-tr {
+  position: absolute;
+  width: 60px;
+  height: 18px;
+  background: var(--tape);
+  opacity: 0.85;
+  top: -8px;
+}
+.hero-tape-tl { left: 24px; transform: rotate(-15deg); }
+.hero-tape-tr { right: 24px; transform: rotate(12deg); }
+.hero-clip {
+  position: absolute;
+  top: -14px; left: 50%;
+  transform: translateX(-50%);
+  font-size: 28px;
+  z-index: 5;
+}
+.hero-rune {
+  font-size: 14px;
+  letter-spacing: 6px;
+  color: var(--gold);
+  margin-bottom: 16px;
+  font-family: 'Sunflower', sans-serif;
+  font-weight: 500;
+}
+.hero-title {
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: 56px;
+  line-height: 1;
+  margin-bottom: 6px;
+  letter-spacing: -2px;
+  color: var(--brown-deep);
+  text-shadow: 3px 3px 0 var(--gold-bright);
+}
+.hero-title .accent {
+  color: var(--text-bright);
+  display: inline-block;
+}
+.hero-title .last {
+  color: var(--brown);
+}
+.hero-divider {
+  display: flex; align-items: center; justify-content: center;
+  gap: 8px; margin-top: 22px;
+}
+.hero-divider span { font-size: 10px; color: var(--gold); letter-spacing: 4px; }
+.hero-divider::before, .hero-divider::after {
+  content: '~';
+  color: var(--copper);
+  font-size: 16px;
+}
+.hero-emoji { font-size: 22px; margin: 0 4px; }
+
+.main-visual {
+  margin-top: 24px;
+  width: 100%;
+  aspect-ratio: 4/3;
+  background: var(--bg-warm);
+  border: 3px dashed var(--copper);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  overflow: hidden;
+}
+.mv-icon { font-size: 48px; opacity: 0.4; }
+.mv-text { font-size: 13px; color: var(--text-mid); font-style: italic; }
+
+.section-header {
+  text-align: center;
+  margin: 36px 0 24px;
+  position: relative;
+}
+.section-header .sh-tape {
+  position: absolute;
+  width: 80px;
+  height: 16px;
+  background: var(--tape-pink);
+  opacity: 0.7;
+  top: -2px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+  z-index: 0;
+}
+.section-header h2 {
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: 28px;
+  color: var(--brown-deep);
+  position: relative;
+  z-index: 1;
+  letter-spacing: -1px;
+  display: inline-block;
+  padding: 4px 16px;
+}
+.section-header .deco {
+  font-size: 14px;
+  color: var(--copper);
+  margin-top: 4px;
+  letter-spacing: 6px;
+}
+
+.info-section { padding: 4px 18px 24px; }
+
+.postit {
+  background: var(--bg-card);
+  border-radius: 10px;
+  padding: 22px 20px 20px;
+  margin-bottom: 22px;
+  position: relative;
+  box-shadow: 2px 3px 0 var(--border), 3px 5px 12px rgba(107,62,26,0.08);
+  border: 1.5px solid var(--border);
+}
+.postit.tilt-l { transform: rotate(-0.5deg); }
+.postit.tilt-r { transform: rotate(0.4deg); }
+.postit::before {
+  content: '';
+  position: absolute;
+  top: -6px; left: 30px;
+  width: 50px;
+  height: 12px;
+  background: var(--tape);
+  opacity: 0.85;
+  transform: rotate(-3deg);
+}
+.postit.tape-r::before {
+  left: auto; right: 30px;
+  transform: rotate(3deg);
+}
+.postit.tape-pink::before { background: var(--tape-pink); }
+.postit h3 {
+  font-family: 'Jua', sans-serif;
+  font-size: 21px;
+  color: var(--brown-deep);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: -0.5px;
+}
+.postit h3 .icon { font-size: 24px; }
+.postit p { font-size: 15.5px; line-height: 1.95; color: var(--text); font-weight: 400; }
+.postit ul { margin-top: 10px; list-style: none; }
+.postit ul li {
+  font-size: 15px;
+  line-height: 1.9;
+  padding-left: 18px;
+  position: relative;
+  color: var(--text);
+}
+.postit ul li::before {
+  content: '✦';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  font-size: 12px;
+  top: 4px;
+}
+
+.map-section { padding: 4px 18px 24px; }
+.map-frame {
+  background: var(--bg-card);
+  border: 2px solid var(--brown);
+  border-radius: 12px;
+  padding: 12px;
+  position: relative;
+  box-shadow: 3px 3px 0 var(--gold-dim);
+}
+.map-frame::before {
+  content: '📌';
+  position: absolute;
+  top: -8px; left: 16px;
+  font-size: 22px;
+  z-index: 5;
+}
+.map-frame::after {
+  content: '📌';
+  position: absolute;
+  top: -8px; right: 16px;
+  font-size: 22px;
+  z-index: 5;
+}
+.map-frame img {
+  width: 100%;
+  display: block;
+  cursor: zoom-in;
+  border-radius: 6px;
+}
+.map-caption {
+  text-align: center;
+  font-size: 13px;
+  color: var(--text-mid);
+  margin-top: 12px;
+  font-family: 'Sunflower', sans-serif;
+  font-style: italic;
+}
+
+.guidebook-display {
+  background: var(--bg-card);
+  border: 2px solid var(--brown);
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 20px;
+  box-shadow: 3px 3px 0 var(--gold-dim);
+  position: relative;
+}
+.guidebook-display::before {
+  content: '📎';
+  position: absolute;
+  top: -10px; left: 20px;
+  font-size: 24px;
+  z-index: 5;
+}
+.guidebook-display img {
+  width: 100%;
+  display: block;
+  cursor: zoom-in;
+  border-radius: 6px;
+}
+
+.place-card {
+  background: var(--bg-warm);
+  border-left: 4px solid var(--gold);
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin-bottom: 12px;
+  box-shadow: 1px 2px 0 var(--border);
+}
+.place-card .place-name {
+  font-family: 'Jua', sans-serif;
+  font-size: 17px;
+  color: var(--brown-deep);
+  margin-bottom: 4px;
+}
+.place-card .place-arabic {
+  font-size: 12px;
+  color: var(--text-mid);
+  margin-left: 8px;
+  font-style: italic;
+}
+.place-card .place-desc {
+  font-size: 14.5px;
+  color: var(--text);
+  line-height: 1.85;
+}
+
+.char-card {
+  background: var(--bg-card);
+  border: 2px solid var(--brown);
+  border-radius: 14px;
+  margin-bottom: 26px;
+  overflow: hidden;
+  box-shadow: 4px 4px 0 var(--gold-dim);
+  position: relative;
+}
+.char-card::before {
+  content: '';
+  position: absolute;
+  top: -6px; left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+  width: 70px;
+  height: 14px;
+  background: var(--tape);
+  opacity: 0.85;
+  z-index: 5;
+}
+.char-img-frame {
+  width: 100%;
+  aspect-ratio: 1/1;
+  background: var(--bg-warm);
+  border-bottom: 2px solid var(--brown);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  overflow: hidden;
+}
+.char-img-icon { font-size: 64px; opacity: 0.4; }
+.char-img-text {
+  font-size: 12px;
+  color: var(--text-mid);
+  font-style: italic;
+  letter-spacing: 1px;
+}
+.char-body { padding: 22px 22px 24px; }
+.char-name {
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: 30px;
+  color: var(--brown-deep);
+  letter-spacing: -1px;
+  line-height: 1.1;
+}
+.char-name .age {
+  font-family: 'Jua', sans-serif;
+  font-size: 14px;
+  color: var(--text-bright);
+  margin-left: 6px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.char-role {
+  font-family: 'Jua', sans-serif;
+  font-size: 14px;
+  color: var(--gold-dim);
+  margin-top: 4px;
+  letter-spacing: 1px;
+}
+.char-quote {
+  font-family: 'Jua', sans-serif;
+  font-size: 16px;
+  color: var(--text-bright);
+  font-style: italic;
+  background: var(--bg-warm);
+  padding: 12px 16px;
+  border-radius: 18px 18px 18px 4px;
+  margin: 16px 0;
+  border: 1.5px dashed var(--copper);
+  position: relative;
+}
+.char-desc {
+  font-size: 15.5px;
+  line-height: 1.95;
+  color: var(--text);
+  margin-top: 12px;
+}
+.char-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 16px;
+}
+.char-tags span {
+  font-family: 'Jua', sans-serif;
+  font-size: 12px;
+  color: var(--brown-deep);
+  background: var(--gold-bright);
+  padding: 4px 12px;
+  border-radius: 14px;
+  font-weight: 500;
+  box-shadow: 1px 1px 0 var(--brown);
+}
+
+.npc-group-title {
+  font-family: 'Jua', sans-serif;
+  font-size: 17px;
+  color: var(--brown-deep);
+  margin: 22px 0 12px;
+  padding-left: 12px;
+  border-left: 4px solid var(--gold);
+  letter-spacing: -0.3px;
+}
+.npc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.npc-card {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 12px 14px;
+  box-shadow: 2px 2px 0 var(--border-soft);
+  position: relative;
+}
+.npc-img {
+  width: 100%;
+  aspect-ratio: 1/1;
+  background: var(--bg-warm);
+  border-radius: 6px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  opacity: 0.7;
+  overflow: hidden;
+}
+.npc-name {
+  font-family: 'Jua', sans-serif;
+  font-size: 15px;
+  color: var(--brown-deep);
+  margin-bottom: 2px;
+  letter-spacing: -0.3px;
+}
+.npc-role {
+  font-size: 11px;
+  color: var(--text-mid);
+  margin-bottom: 6px;
+  font-family: 'Sunflower', sans-serif;
+}
+.npc-desc {
+  font-size: 12.5px;
+  color: var(--text);
+  line-height: 1.65;
+  font-weight: 400;
+}
+
+.system-card {
+  background: var(--bg-card);
+  border-radius: 14px;
+  padding: 22px 20px;
+  margin-bottom: 22px;
+  border: 2px solid var(--copper);
+  box-shadow: 3px 3px 0 var(--gold-dim);
+  position: relative;
+}
+.system-card.tape-l::before {
+  content: '';
+  position: absolute;
+  top: -8px; left: 24px;
+  width: 56px;
+  height: 14px;
+  background: var(--tape);
+  opacity: 0.85;
+  transform: rotate(-4deg);
+}
+.system-card.tape-r::before {
+  content: '';
+  position: absolute;
+  top: -8px; right: 24px;
+  width: 56px;
+  height: 14px;
+  background: var(--tape-pink);
+  opacity: 0.85;
+  transform: rotate(4deg);
+}
+.system-card h3 {
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: 22px;
+  color: var(--brown-deep);
+  margin-bottom: 12px;
+  letter-spacing: -1px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.system-card h3 .icon { font-size: 26px; }
+.system-card .system-sub {
+  font-family: 'Jua', sans-serif;
+  font-size: 14px;
+  color: var(--text-bright);
+  margin-bottom: 14px;
+}
+.system-card h4 {
+  font-family: 'Jua', sans-serif;
+  font-size: 15px;
+  color: var(--brown);
+  margin-top: 14px;
+  margin-bottom: 6px;
+}
+.system-card ul {
+  list-style: none;
+  margin-top: 6px;
+}
+.system-card ul li {
+  font-size: 14.5px;
+  line-height: 1.95;
+  padding-left: 18px;
+  position: relative;
+  color: var(--text);
+}
+.system-card ul li::before {
+  content: '◆';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  font-size: 9px;
+  top: 6px;
+}
+.system-card .note {
+  font-size: 13px;
+  color: var(--text-mid);
+  font-style: italic;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border);
+}
+
+.persona-builder {
+  background: var(--bg-card);
+  border: 2px solid var(--brown);
+  border-radius: 14px;
+  padding: 24px 20px;
+  box-shadow: 4px 4px 0 var(--gold-dim);
+  margin-bottom: 20px;
+}
+.pb-intro {
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-mid);
+  margin-bottom: 20px;
+  font-family: 'Sunflower', sans-serif;
+}
+.pb-group { margin-bottom: 22px; }
+.pb-label {
+  display: block;
+  font-family: 'Jua', sans-serif;
+  font-size: 16px;
+  color: var(--brown-deep);
+  margin-bottom: 10px;
+  letter-spacing: -0.3px;
+}
+.pb-label .pb-hint-inline {
+  font-size: 11px;
+  color: var(--text-mid);
+  margin-left: 6px;
+  font-family: 'Sunflower', sans-serif;
+  font-weight: 400;
+}
+.pb-input {
+  width: 100%;
+  background: var(--bg-warm);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 11px 14px;
+  color: var(--text);
+  font-size: 14.5px;
+  font-family: 'Gowun Dodum', sans-serif;
+  outline: none;
+  transition: all 0.2s;
+}
+.pb-input:focus { border-color: var(--gold); background: white; }
+.pb-input::placeholder { color: var(--text-dim); font-size: 13.5px; }
+.pb-textarea { resize: vertical; min-height: 80px; line-height: 1.7; }
+.pb-hint {
+  font-size: 12px;
+  color: var(--text-mid);
+  margin-top: 6px;
+  font-family: 'Sunflower', sans-serif;
+}
+.pb-radio-group { display: flex; flex-wrap: wrap; gap: 7px; }
+.pb-radio-col { flex-direction: column; gap: 6px; }
+.pb-radio { flex: 1; min-width: 80px; cursor: pointer; }
+.pb-radio-col .pb-radio { flex: unset; }
+.pb-radio input { display: none; }
+.pb-radio span {
+  display: block;
+  padding: 9px 12px;
+  background: var(--bg-warm);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-size: 13.5px;
+  color: var(--text);
+  text-align: center;
+  font-family: 'Jua', sans-serif;
+  transition: all 0.2s;
+}
+.pb-radio-col .pb-radio span { text-align: left; }
+.pb-radio input:checked + span {
+  background: var(--gold-bright);
+  border-color: var(--brown);
+  color: var(--brown-deep);
+  box-shadow: 1px 1px 0 var(--brown);
+}
+.pb-check-group { display: flex; flex-wrap: wrap; gap: 6px; }
+.pb-check { cursor: pointer; }
+.pb-check input { display: none; }
+.pb-check span {
+  display: inline-block;
+  padding: 7px 12px;
+  background: var(--bg-warm);
+  border: 1.5px solid var(--border);
+  border-radius: 18px;
+  font-size: 13px;
+  color: var(--text);
+  font-family: 'Jua', sans-serif;
+  transition: all 0.2s;
+}
+.pb-check input:checked + span {
+  background: var(--gold-bright);
+  border-color: var(--brown);
+  color: var(--brown-deep);
+  box-shadow: 1px 1px 0 var(--brown);
+}
+.species-conditional {
+  display: none;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 2px dashed var(--gold);
+}
+.species-conditional.active { display: block; }
+.pb-generate {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, var(--gold), var(--brown));
+  border: 2px solid var(--brown-deep);
+  border-radius: 10px;
+  color: white;
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: 18px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  margin-top: 14px;
+  box-shadow: 3px 3px 0 var(--brown-deep);
+  transition: all 0.2s;
+}
+.pb-generate:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--brown-deep);
+}
+.pb-result {
+  margin-top: 22px;
+  padding: 20px;
+  background: var(--bg-warm);
+  border: 2px solid var(--gold);
+  border-radius: 12px;
+  box-shadow: 3px 3px 0 var(--gold-dim);
+  position: relative;
+}
+.pb-result::before {
+  content: '';
+  position: absolute;
+  top: -8px; left: 30px;
+  width: 50px;
+  height: 14px;
+  background: var(--tape-pink);
+  opacity: 0.85;
+  transform: rotate(-3deg);
+}
+.pb-result-label {
+  font-family: 'Jua', sans-serif;
+  font-size: 15px;
+  color: var(--brown-deep);
+  margin-bottom: 14px;
+}
+.pb-result-text {
+  font-family: 'Gowun Dodum', sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  line-height: 2;
+  white-space: pre-wrap;
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px dashed var(--border);
+}
+.pb-copy {
+  width: 100%;
+  padding: 12px;
+  background: var(--brown);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-family: 'Jua', sans-serif;
+  font-size: 14px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.pb-copy.copied { background: var(--gold); }
+
+.route-card {
+  background: var(--bg-card);
+  border: 2px solid var(--brown);
+  border-radius: 14px;
+  padding: 22px 22px 24px;
+  margin-bottom: 18px;
+  box-shadow: 4px 4px 0 var(--gold-dim);
+  position: relative;
+  transform: rotate(-0.3deg);
+}
+.route-card.r2 { transform: rotate(0.3deg); }
+.route-card::before {
+  content: '';
+  position: absolute;
+  top: -8px; left: 30px;
+  width: 60px;
+  height: 14px;
+  background: var(--tape);
+  opacity: 0.85;
+  transform: rotate(-4deg);
+}
+.route-card.r2::before { background: var(--tape-pink); }
+.route-num {
+  font-family: 'Jua', sans-serif;
+  font-size: 12px;
+  color: var(--gold-dim);
+  letter-spacing: 4px;
+  margin-bottom: 8px;
+}
+.route-title {
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: 24px;
+  color: var(--brown-deep);
+  margin-bottom: 10px;
+  letter-spacing: -1px;
+}
+.route-desc {
+  font-size: 15px;
+  line-height: 1.95;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.route-tag {
+  display: inline-block;
+  background: var(--gold-bright);
+  color: var(--brown-deep);
+  padding: 4px 12px;
+  border-radius: 14px;
+  font-family: 'Jua', sans-serif;
+  font-size: 12px;
+  margin-top: 6px;
+  box-shadow: 1px 1px 0 var(--brown);
+}
+
+.guide-list {
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 18px 22px;
+  box-shadow: 2px 2px 0 var(--border-soft);
+}
+.guide-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px dashed var(--border);
+  font-size: 14.5px;
+  line-height: 1.85;
+  color: var(--text);
+}
+.guide-item:last-child { border-bottom: none; }
+.guide-item .gi-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+  width: 28px;
+  text-align: center;
+}
+.guide-item .gi-content { flex: 1; }
+.guide-item .gi-label {
+  font-family: 'Jua', sans-serif;
+  color: var(--brown);
+  font-weight: 600;
+  margin-right: 6px;
+}
+
+.season-card {
+  background: var(--bg-card);
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin-bottom: 14px;
+  border: 1.5px solid var(--border);
+  box-shadow: 2px 2px 0 var(--border-soft);
+  position: relative;
+}
+.season-card.spring { border-left: 5px solid #f4b5a8; }
+.season-card.summer { border-left: 5px solid var(--gold); }
+.season-card.autumn { border-left: 5px solid var(--copper); }
+.season-card.winter { border-left: 5px solid var(--mint); }
+.season-card h3 {
+  font-family: 'Jua', sans-serif;
+  font-size: 18px;
+  color: var(--brown-deep);
+  margin-bottom: 8px;
+}
+.season-card p {
+  font-size: 14.5px;
+  line-height: 1.85;
+  color: var(--text);
+}
+
+.cmd-display {
+  background: var(--bg-card);
+  border: 2px solid var(--brown);
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 20px;
+  box-shadow: 3px 3px 0 var(--gold-dim);
+  position: relative;
+}
+.cmd-display::before {
+  content: '📎';
+  position: absolute;
+  top: -10px; right: 20px;
+  font-size: 24px;
+  z-index: 5;
+}
+.cmd-display img {
+  width: 100%;
+  display: block;
+  cursor: zoom-in;
+  border-radius: 6px;
+}
+
+.cta-section { padding: 12px 18px 24px; }
+.cta {
+  display: block;
+  text-align: center;
+  padding: 18px;
+  background: linear-gradient(135deg, var(--gold), var(--brown));
+  border: 2px solid var(--brown-deep);
+  border-radius: 14px;
+  color: white;
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: 22px;
+  letter-spacing: 3px;
+  text-decoration: none;
+  box-shadow: 4px 4px 0 var(--brown-deep);
+  transition: all 0.2s;
+}
+.cta:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--brown-deep);
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 100%; max-width: 460px;
+  z-index: 100;
+  background: var(--bg-card);
+  border-top: 3px solid var(--brown);
+  display: flex;
+  box-shadow: 0 -4px 16px rgba(107,62,26,0.15);
+}
+.nav-btn {
+  flex: 1;
+  padding: 14px 0;
+  text-align: center;
+  font-family: 'Jua', sans-serif;
+  font-size: 15px;
+  letter-spacing: 2px;
+  color: var(--text-mid);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+}
+.nav-btn.active {
+  color: var(--brown-deep);
+  background: var(--gold-bright);
+}
+.nav-btn.active::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 40%;
+  height: 4px;
+  background: var(--brown);
+}
+.nav-btn:not(:last-child) { border-right: 1.5px dashed var(--border); }
+
+.lightbox {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(74,47,26,0.94);
+  z-index: 9000;
+  align-items: center;
+  justify-content: center;
+  cursor: zoom-out;
+}
+.lightbox.active { display: flex; }
+.lightbox img {
+  max-width: 95%;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 6px;
+}
+.lb-close {
+  position: absolute;
+  top: 16px; right: 16px;
+  background: var(--bg-card);
+  border: 2px solid var(--brown);
+  border-radius: 50%;
+  width: 38px; height: 38px;
+  color: var(--brown);
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-in { animation: fadeUp 0.6s ease-out forwards; }
+.delay-1 { animation-delay: 0.15s; opacity: 0; }
+.delay-2 { animation-delay: 0.25s; opacity: 0; }
+.delay-3 { animation-delay: 0.35s; opacity: 0; }
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg-paper); }
+::-webkit-scrollbar-thumb { background: var(--copper); border-radius: 2px; }
+
+.credit { text-align: center; padding: 24px 18px 50px; }
+.credit p {
+  font-family: 'Sunflower', sans-serif;
+  font-size: 12px;
+  color: var(--text-dim);
+  letter-spacing: 3px;
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ═══════ SECTION 1: 세계관 ═══════ -->
+  <div class="section active" id="sec-world">
+
+    <div class="bgm-bar">
+      <span class="bgm-icon">♪</span>
+      <span class="bgm-title">사하르의 모래바람</span>
+      <button class="bgm-btn" onclick="openBGM()">▶ 재생</button>
+    </div>
+
+    <div class="hero fade-in">
+      <div class="hero-wrap">
+        <span class="hero-clip">📎</span>
+        <div class="hero-tape-tl"></div>
+        <div class="hero-tape-tr"></div>
+        <div class="hero-rune">⌒ SAHAR ⌒</div>
+        <h1 class="hero-title">잡혀<span class="accent">먹지</span> <span class="last">마!</span></h1>
+        <div class="hero-divider">
+          <span class="hero-emoji">🌵</span>
+          <span>◆ ◆ ◆</span>
+          <span class="hero-emoji">🐪</span>
+        </div>
+
+        <div class="main-visual" id="main-visual">
+          <div class="mv-icon">🏜️</div>
+          <div class="mv-text">메인 비주얼</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Intro: 시즌1 결 X·새 결 -->
+    <div class="info-section fade-in delay-1">
+      <div class="postit tilt-l">
+        <p>
+          정신을 차려보니 — <br>
+          <span class="hl">사막 한가운데</span>에 떨어졌어요. 🌪️<br><br>
+          입안에 모래가 가득하고, 핏자국 묻은 옷에<br>
+          기억은 흐릿한데... 이상하게 죽진 않았네요.<br><br>
+          멀리서 발걸음 소리가 들려와요.<br>
+          <span class="hl">덩치 셋이 위에서 내려다봐요.</span><br><br>
+          하나는 송곳니를 드러내며 천천히 웃고 🦊<br>
+          하나는 매처럼 빤히 관찰하고 🦅<br>
+          하나는 거대한 손을 쓱 내밀어요. 🐪<br><br>
+          이게 도와주는 건지, 잡아먹으려는 건지<br>
+          알 수가 없는데...<br><br>
+          <em style="color:var(--text-bright); font-size: 17px;">..살아남거나, 잡혀먹히거나. 🎲</em>
+        </p>
+      </div>
+    </div>
+
+    <div class="map-section fade-in delay-2">
+      <div class="section-header">
+        <div class="sh-tape"></div>
+        <h2>세계관 지도</h2>
+        <div class="deco">~ MAP ~</div>
+      </div>
+      <div class="map-frame">
+        <img src="https://raw.githubusercontent.com/happyday3026-hash/dontgeteaten/main/세계관지도.png"
+             alt="세계관 지도" onclick="openLightbox(this.src)">
+        <div class="map-caption">📌 카라반은 낙타 타고 이동해요!</div>
+      </div>
+    </div>
+
+    <div class="info-section fade-in delay-3">
+      <div class="section-header">
+        <div class="sh-tape"></div>
+        <h2>처음이세요?</h2>
+        <div class="deco">~ START HERE ~</div>
+      </div>
+      <div class="guidebook-display">
+        <img src="https://raw.githubusercontent.com/happyday3026-hash/dontgeteaten/main/소개.png"
+             alt="세계관 가이드북" onclick="openLightbox(this.src)">
+      </div>
+    </div>
+
+    <div class="info-section">
+      <div class="section-header">
+        <div class="sh-tape"></div>
+        <h2>주요 장소</h2>
+        <div class="deco">~ PLACES ~</div>
+      </div>
+
+      <div class="postit tilt-r tape-r">
+        <h3><span class="icon">🏜️</span>사하르 사막</h3>
+        <p>도망친 수인의 후예가 모여 사는 자유 부족이에요!<br>
+        본거지는 <span class="hl">샤바</span>예요.</p>
+      </div>
+
+      <div class="place-card">
+        <div class="place-name">샤바<span class="place-arabic">Shaba</span></div>
+        <div class="place-desc">사하르 부족의 본거지. 약 60명이 함께 살아요.</div>
+      </div>
+      <div class="place-card">
+        <div class="place-name">자르카·알리프<span class="place-arabic">Zarqa · Alif</span></div>
+        <div class="place-desc">두 개의 오아시스. 카라반이 거쳐 가는 중간 기지!</div>
+      </div>
+      <div class="place-card">
+        <div class="place-name">마디나 유적<span class="place-arabic">Madina</span></div>
+        <div class="place-desc">옛 문명이 멸망한 폐허. 가끔 신비한 물건이 발견돼요.</div>
+      </div>
+      <div class="place-card">
+        <div class="place-name">할라크<span class="place-arabic">Halak</span></div>
+        <div class="place-desc">죽음의 사막. 살아 돌아온 사람은 거의 없어요.</div>
+      </div>
+
+      <div class="postit tilt-l">
+        <h3><span class="icon">🏛️</span>알 마디나 (본토)</h3>
+        <p>옛 문명의 후예가 사는 거대한 도시.<br>
+        <span class="hl">신족</span>이 다스리고, 수인은 사냥감 취급이에요.</p>
+      </div>
+
+      <div class="place-card">
+        <div class="place-name">알 수크<span class="place-arabic">Al-Suq</span></div>
+        <div class="place-desc">외곽 시장. 잠입자의 첫 거점이에요.</div>
+      </div>
+      <div class="place-card">
+        <div class="place-name">알 무사라아<span class="place-arabic">Al-Musara'a</span></div>
+        <div class="place-desc">전투장. 잡힌 수인이 끌려가는 곳.</div>
+      </div>
+      <div class="place-card">
+        <div class="place-name">알 하이 알 파키르<span class="place-arabic">Al-Faqir</span></div>
+        <div class="place-desc">빈민가. 위조 장인과 정보꾼이 모여요.</div>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <div class="section-header">
+        <div class="sh-tape"></div>
+        <h2>이동수단</h2>
+        <div class="deco">~ TRAVEL ~</div>
+      </div>
+      <div class="postit tape-pink">
+        <h3><span class="icon">🐪</span>낙타 카라반!</h3>
+        <p>사하르 부족은 <span class="hl">낙타</span>로 다녀요.<br><br>
+        🦶 <span class="hl-gold">부족 안에서</span> = 도보<br>
+        🐪 <span class="hl-gold">멀리 갈 때</span> = 낙타 카라반<br>
+        🐎 <span class="hl-gold">도시</span> = 마차 (신족·부자만)<br><br>
+        낙타는 사막의 가족이에요. 사막에서 가장 소중한 친구!<br>
+        <span class="hl">카림</span>이 낙타 대장이라 제일 잘 다뤄요. 🐪✨</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ═══════ SECTION 2: 캐릭터 ═══════ -->
+  <div class="section" id="sec-char">
+
+    <div class="info-section" style="padding-top: 20px;">
+      <div class="section-header">
+        <div class="sh-tape"></div>
+        <h2>남주 3명</h2>
+        <div class="deco">~ MAIN ~</div>
+      </div>
+
+      <div class="char-card">
+        <div class="char-img-frame" id="char-zaid">
+          <div class="char-img-icon">🦊</div>
+          <div class="char-img-text">자이드 사진</div>
+        </div>
+        <div class="char-body">
+          <div class="char-name">자이드 <span class="age">25세</span></div>
+          <div class="char-role">⚔ 정찰병 · 사막여우 수인</div>
+          <div class="char-quote">"...도망쳐봐. 따라갈테니까."</div>
+          <p class="char-desc">
+            <span class="hl">위험한 매력</span>의 정찰병이에요.<br>
+            느긋하게 위험해요.<br>
+            송곳니를 드러내며 천천히 웃는 게 시그니처!<br><br>
+            본능이 가장 민감한 캐릭이에요.<br>
+            진짜 흔들리면 본인이 가장 놀란답니다.
+          </p>
+          <div class="char-tags">
+            <span>위험매력</span>
+            <span>송곳니미소</span>
+            <span>능글</span>
+            <span>본능예민</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="char-card">
+        <div class="char-img-frame" id="char-khalid">
+          <div class="char-img-icon">🦅</div>
+          <div class="char-img-text">칼리드 사진</div>
+        </div>
+        <div class="char-body">
+          <div class="char-name">칼리드 <span class="age">28세</span></div>
+          <div class="char-role">⚔ 카라반장 · 사막매 수인</div>
+          <div class="char-quote">"...너 진짜. 어쩔 줄을 모르네."</div>
+          <p class="char-desc">
+            <span class="hl">카리스마 어른</span>이에요.<br>
+            능글맞고 까칠하고 여유로워요.<br>
+            모든 걸 보고 있고, 작은 반응도 다 파악해요.<br><br>
+            매처럼 관찰하다 한 박자 늦게 답해요.<br>
+            수첩과 잉크병은 항상 들고 다녀요.
+          </p>
+          <div class="char-tags">
+            <span>카리스마</span>
+            <span>능글까칠</span>
+            <span>관찰력</span>
+            <span>여유</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="char-card">
+        <div class="char-img-frame" id="char-karim">
+          <div class="char-img-icon">🐪</div>
+          <div class="char-img-text">카림 사진</div>
+        </div>
+        <div class="char-body">
+          <div class="char-name">카림 <span class="age">31세</span></div>
+          <div class="char-role">⚔ 사냥대장 · 낙타 수인</div>
+          <div class="char-quote">"좋네, 너. 오늘부터 내가 챙긴다."</div>
+          <p class="char-desc">
+            <span class="hl">대형견 결</span> 맏형이에요.<br>
+            천하태평하고 천진난만해요.<br>
+            본인 덩치를 인지 못해서 자꾸 어딘가에 부딪혀요.<br><br>
+            큰 손으로 작은 거 다루는 게 의외로 능숙해요.<br>
+            부족에서 가장 신뢰받는 사냥꾼이랍니다.
+          </p>
+          <div class="char-tags">
+            <span>대형견</span>
+            <span>천연덕</span>
+            <span>맏형</span>
+            <span>큰손</span>
+            <span>다정</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <div class="section-header">
+        <div class="sh-tape"></div>
+        <h2>등장인물</h2>
+        <div class="deco">~ NPC ~</div>
+      </div>
+
+      <div class="npc-group-title">🏜️ 사하르 부족</div>
+      <div class="npc-grid">
+        <div class="npc-card">
+          <div class="npc-img">👵</div>
+          <div class="npc-name">할마</div>
+          <div class="npc-role">신모 · 900세</div>
+          <div class="npc-desc">백발 보라 베일. 바람 신탁을 내려요.</div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-img">👨‍🦳</div>
+          <div class="npc-name">세이크</div>
+          <div class="npc-role">수장 · 40세</div>
+          <div class="npc-desc">은백수염. 차갑고 공정한 결정권자.</div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-img">🌿</div>
+          <div class="npc-name">무라드</div>
+          <div class="npc-role">약초사 · 35세</div>
+          <div class="npc-desc">녹색 베일. 약초 만들어 주는 다정한 분.</div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-img">👧</div>
+          <div class="npc-name">사라</div>
+          <div class="npc-role">꼬마 · 10세</div>
+          <div class="npc-desc">맨발 흑발. 호기심 폭발하는 부족 마스코트.</div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-img">🦊</div>
+          <div class="npc-name">사미르</div>
+          <div class="npc-role">한량 · 25세</div>
+          <div class="npc-desc">검은 곱슬·황금 귀고리. 페넥 수인.</div>
+        </div>
+      </div>
+
+      <div class="npc-group-title">🤝 동맹 부족</div>
+      <div class="npc-grid">
+        <div class="npc-card">
+          <div class="npc-img">🦌</div>
+          <div class="npc-name">자흐라</div>
+          <div class="npc-role">영양 수인 · 27세</div>
+          <div class="npc-desc">금발 푸른 눈. 이웃 부족 수장의 딸.</div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-img">🐺</div>
+          <div class="npc-name">하리스</div>
+          <div class="npc-role">자칼 수인 · 26세</div>
+          <div class="npc-desc">검은 피부 황금 눈. 강직하고 예의 바름.</div>
+        </div>
+      </div>
+
+      <div class="npc-group-title">🏛️ 알 마디나 (도시)</div>
+      <div class="npc-grid">
+        <div class="npc-card">
+          <div class="npc-img">👤</div>
+          <div class="npc-name">카심</div>
+          <div class="npc-role">영주 · 50세</div>
+          <div class="npc-desc">은백머리·검은정장. 전투장 운영자.</div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-img">💋</div>
+          <div class="npc-name">파트마</div>
+          <div class="npc-role">술집주인 · 45세</div>
+          <div class="npc-desc">붉은 머리·담배. 잠입자 첫 거점.</div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-img">📜</div>
+          <div class="npc-name">유세프</div>
+          <div class="npc-role">위조장인 · 35세</div>
+          <div class="npc-desc">안경·잉크 손. 위조 배급증을 만들어요.</div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-img">⚔</div>
+          <div class="npc-name">카스파르</div>
+          <div class="npc-role">헌병대장 · 38세</div>
+          <div class="npc-desc">금발 검은 제복. 수인 추적 전문.</div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-img">🗡️</div>
+          <div class="npc-name">단</div>
+          <div class="npc-role">도망자 · 24세</div>
+          <div class="npc-desc">검은 피부·전투 흉터. 말 적고 강함.</div>
+        </div>
+      </div>
+
+      <div class="npc-group-title">🌪️ 외부</div>
+      <div class="npc-grid">
+        <div class="npc-card">
+          <div class="npc-img">⚔️</div>
+          <div class="npc-name">라스</div>
+          <div class="npc-role">도적두목 · 35세</div>
+          <div class="npc-desc">뺨 흉터. 황무지 카라반을 노려요.</div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-img">📖</div>
+          <div class="npc-name">자이눕</div>
+          <div class="npc-role">이야기꾼 · 30세</div>
+          <div class="npc-desc">종족 모름. 푸른 천. 격언으로 말해요.</div>
+        </div>
+        <div class="npc-card">
+          <div class="npc-img">🍷</div>
+          <div class="npc-name">루카</div>
+          <div class="npc-role">정보꾼 · 28세 · 인간</div>
+          <div class="npc-desc">창백 피부 갈색 머리. 시건방+능글.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 시스템: 향+발정기+임신 통합 -->
+    <div class="info-section">
+      <div class="section-header">
+        <div class="sh-tape"></div>
+        <h2>꼭 알아두세요!</h2>
+        <div class="deco">~ SYSTEM ~</div>
+      </div>
+
+      <div class="system-card tape-l">
+        <h3><span class="icon">🦊</span>수인 시스템</h3>
+        <div class="system-sub">향 · 발정기 · 임신 한번에 정리!</div>
+
+        <h4>👃 향 (수인이 인간을 어떻게 느끼나요?)</h4>
+        <ul>
+          <li>인간 = 수인에게 <span class="hl">달콤한 케이크향</span>으로 느껴짐 🍰</li>
+          <li>본능 자극! 캐릭별로 반응이 달라요</li>
+          <li>자이드 = 셋 중 가장 민감</li>
+          <li>칼리드 = 절제 (통제력 강함)</li>
+          <li>카림 = 둔감 (잘 참아요)</li>
+          <li>사하르에서는 본능 통제 가능·일상 평온</li>
+        </ul>
+
+        <h4>🔥 발정기 (알 하야암)</h4>
+        <ul>
+          <li>여름 본격·봄 말부터 증상 시작</li>
+          <li>캐릭별 시기 자율</li>
+          <li>증상: 향 ↑·체온 ↑·본능 ↑·민감 ↑</li>
+          <li>대처: 모린 약초 / 격리 / 짝과 함께</li>
+        </ul>
+
+        <h4>🌿 향 차단 (도시 잠입 시 필수!)</h4>
+        <ul>
+          <li>모린 약초 사용 (무라드가 만들어줘요)</li>
+          <li>하루 1회 사용</li>
+          <li>없을 시 본능 ↑·발각 위험 ↑</li>
+        </ul>
+
+        <h4>🌸 임신·피임</h4>
+        <ul>
+          <li>여성 → 임신 가능</li>
+          <li>남성 + 일부 수인 종족 → 잉태 가능 (10%·자율 설정)</li>
+          <li>남성 + 인간 → 임신 불가</li>
+          <li>발정기 = 가능성 ↑↑·평소 = ↓</li>
+          <li>매 정사 시 캐릭이 인지·기본 = 체외사정</li>
+          <li>콘돔 X (사막 부족 문화)</li>
+          <li>피임 = 모린 약초 (무라드 처방)</li>
+          <li><span class="hl">!야스기록 명령어</span>로 임신 상태 확인 가능 ⭐</li>
+        </ul>
+
+        <p class="note">※ 유저 선택 항상 존중!</p>
+      </div>
+
+      <div class="system-card tape-r">
+        <h3><span class="icon">🌬️</span>사하르 부족 전통</h3>
+        <div class="system-sub">사막에서 살아남는 방법!</div>
+
+        <h4>📜 통과의례 (이방인 → 부족원)</h4>
+        <ul>
+          <li><span class="hl">1단계</span> = 베일 받기 (부족 인정 시작)</li>
+          <li><span class="hl">2단계</span> = 모래폭풍 통과 (자격 증명)</li>
+          <li><span class="hl">3단계</span> = 도시 잠입 (정찰병)</li>
+          <li>3단계 다 통과 = 부족 정식 일원!</li>
+        </ul>
+
+        <h4>🌬️ 바람의 수호자 의식</h4>
+        <ul>
+          <li>사하르 부족 전통 의식</li>
+          <li>신모 할마가 바람의 신탁을 받아요</li>
+          <li>셋 중 마음 깊은 자가 "내가 지킨다" 선언</li>
+          <li>정해진 자 = 평생 곁을 지키는 결</li>
+        </ul>
+
+        <h4>🎵 구전 부족</h4>
+        <ul>
+          <li>사하르는 글자가 없어요</li>
+          <li>모든 역사 = 노래·이야기로 전해져요</li>
+          <li>할마 할머니가 부족 노래를 가장 잘 알아요</li>
+          <li>의식·회의 때 한 줄 노래가 자동으로 흘러나와요</li>
+        </ul>
+
+        <h4>💧 물 의식</h4>
+        <ul>
+          <li>물 = 신성! 매우 귀해요</li>
+          <li>손님에게 한 잔 = 환영의 뜻</li>
+          <li>거절 = 적대로 받아들여요</li>
+          <li>일상에서 반잔씩 나눠 마셔요</li>
+        </ul>
+
+        <h4>🎭 위장 (도시 진입)</h4>
+        <ul>
+          <li>귀·꼬리·송곳니·비늘 다 가려야 해요</li>
+          <li>수인 감별기·향 사냥꾼 조심!</li>
+          <li>발각 시 노예/전투장 직행 ⚠️</li>
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ═══════ SECTION 3: 시작 ═══════ -->
+  <div class="section" id="sec-start">
+
+    <div class="info-section" style="padding-top: 20px;">
+      <div class="section-header">
+        <div class="sh-tape"></div>
+        <h2>시작 루트</h2>
+        <div class="deco">~ START ~</div>
+      </div>
+
+      <div class="route-card">
+        <div class="route-num">ROUTE A</div>
+        <div class="route-title">잡혀먹지 마! 💦</div>
+        <div class="route-desc">전투장 우리에서 깨어나버려요.<br>
+        목숨이 위태로운 그 순간, 사하르 수인 셋이 들이닥쳐 구해줘요.</div>
+        <span class="route-tag">🚨 위험 시작</span>
+      </div>
+
+      <div class="route-card r2">
+        <div class="route-num">ROUTE B</div>
+        <div class="route-title">사막에 떨어졌다!</div>
+        <div class="route-desc">사하르 외곽 모래언덕 한가운데에 누워있어요.<br>
+        정찰 중이던 자이드가 발견하고, 천막으로 데려가요.</div>
+        <span class="route-tag">🌬️ 신비 시작</span>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <div class="section-header">
+        <div class="sh-tape"></div>
+        <h2>나만의 캐릭터</h2>
+        <div class="deco">~ PERSONA ~</div>
+      </div>
+
+      <div class="persona-builder">
+        <div class="pb-intro">선택하고 입력하면 나만의 페르소나가 완성돼요! ♡</div>
+
+        <div class="pb-group">
+          <label class="pb-label">✦ 이름</label>
+          <input type="text" id="pb-name" class="pb-input" placeholder="자유롭게 입력하세요">
+        </div>
+
+        <div class="pb-group">
+          <label class="pb-label">✦ 나이</label>
+          <input type="number" id="pb-age" class="pb-input" placeholder="19 이상 추천" min="15" max="99" value="22">
+          <p class="pb-hint">성인 의식·스킨십은 19세 이상부터 가능해요</p>
+        </div>
+
+        <div class="pb-group">
+          <label class="pb-label">✦ 성별</label>
+          <div class="pb-radio-group">
+            <label class="pb-radio"><input type="radio" name="gender" value="여"><span>여</span></label>
+            <label class="pb-radio"><input type="radio" name="gender" value="남"><span>남</span></label>
+            <label class="pb-radio"><input type="radio" name="gender" value="자유 설정" checked><span>자유</span></label>
+          </div>
+        </div>
+
+        <div class="pb-group">
+          <label class="pb-label">✦ 종족</label>
+          <div class="pb-radio-group pb-radio-col">
+            <label class="pb-radio"><input type="radio" name="species-type" value="인간" onchange="toggleSpecies(false)"><span>👤 인간</span></label>
+            <label class="pb-radio"><input type="radio" name="species-type" value="수인" onchange="toggleSpecies(true)" checked><span>🦊 수인</span></label>
+            <label class="pb-radio"><input type="radio" name="species-type" value="자유" onchange="toggleSpecies(false)"><span>✨ 자유 (직접 입력)</span></label>
+          </div>
+
+          <div class="species-conditional active" id="species-detail">
+            <label class="pb-label" style="margin-top:10px;">🦊 수인 종족 선택</label>
+            <div class="pb-radio-group pb-radio-col">
+              <label class="pb-radio"><input type="radio" name="species-detail" value="사막여우 (페넥) 수인"><span>🦊 사막여우 (페넥)</span></label>
+              <label class="pb-radio"><input type="radio" name="species-detail" value="사막매 수인"><span>🦅 사막매</span></label>
+              <label class="pb-radio"><input type="radio" name="species-detail" value="낙타 수인"><span>🐪 낙타</span></label>
+              <label class="pb-radio"><input type="radio" name="species-detail" value="늑대 수인"><span>🐺 늑대</span></label>
+              <label class="pb-radio"><input type="radio" name="species-detail" value="자칼 수인"><span>🐺 자칼</span></label>
+              <label class="pb-radio"><input type="radio" name="species-detail" value="영양 수인"><span>🦌 영양</span></label>
+              <label class="pb-radio"><input type="radio" name="species-detail" value="사막사자 수인"><span>🦁 사막사자</span></label>
+              <label class="pb-radio"><input type="radio" name="species-detail" value="도마뱀 수인"><span>🦎 도마뱀</span></label>
+              <label class="pb-radio"><input type="radio" name="species-detail" value="자율 (자유 설정)" checked><span>✨ 자율 (자유 설정)</span></label>
+            </div>
+
+            <label class="pb-label" style="margin-top:14px;">🌬️ 페로몬 향 <span class="pb-hint-inline">(자유 입력)</span></label>
+            <input type="text" id="pb-pheromone" class="pb-input" placeholder="예) 시원한 박하·달콤한 꿀·따뜻한 향나무">
+
+            <label class="pb-label" style="margin-top:14px;">🔥 발정기 시기</label>
+            <div class="pb-radio-group">
+              <label class="pb-radio"><input type="radio" name="heat" value="봄"><span>🌸 봄</span></label>
+              <label class="pb-radio"><input type="radio" name="heat" value="여름"><span>☀️ 여름</span></label>
+              <label class="pb-radio"><input type="radio" name="heat" value="가을"><span>🍂 가을</span></label>
+              <label class="pb-radio"><input type="radio" name="heat" value="겨울"><span>❄️ 겨울</span></label>
+              <label class="pb-radio"><input type="radio" name="heat" value="자유 설정" checked><span>✨ 자유</span></label>
+            </div>
+          </div>
+        </div>
+
+        <div class="pb-group">
+          <label class="pb-label">✦ 능력·특기 <span class="pb-hint-inline">(여러 개 선택 가능)</span></label>
+          <div class="pb-check-group">
+            <label class="pb-check"><input type="checkbox" name="skill" value="사냥 실력. 자이드와 카림과 함께 사냥 가능"><span>🏹 사냥</span></label>
+            <label class="pb-check"><input type="checkbox" name="skill" value="약초·의학 지식. 무라드의 제자로 활약 가능"><span>🌿 약초·의학</span></label>
+            <label class="pb-check"><input type="checkbox" name="skill" value="노래·이야기꾼 재능. 모닥불 앞에서 부족을 홀림"><span>🎤 노래·이야기</span></label>
+            <label class="pb-check"><input type="checkbox" name="skill" value="손재주 좋음. 장신구·도구 제작 가능"><span>🪡 손재주</span></label>
+            <label class="pb-check"><input type="checkbox" name="skill" value="요리 실력. 현대 레시피로 부족 충격"><span>🍳 요리</span></label>
+            <label class="pb-check"><input type="checkbox" name="skill" value="격투·전투 실력"><span>💪 격투</span></label>
+            <label class="pb-check"><input type="checkbox" name="skill" value="모래폭풍 감지 능력"><span>🌪️ 모래 감지</span></label>
+            <label class="pb-check"><input type="checkbox" name="skill" value="옛 문명 해독. 마디나 유적 이해"><span>📜 옛문명 해독</span></label>
+            <label class="pb-check"><input type="checkbox" name="skill" value="마법 사용. 종류는 자유 설정"><span>✨ 마법</span></label>
+            <label class="pb-check"><input type="checkbox" name="skill" value="변신 능력 (수인 자율 설정)"><span>🔄 변신</span></label>
+            <label class="pb-check"><input type="checkbox" name="skill" value="야간 시야 (수인 본능)"><span>👁️ 야간 시야</span></label>
+            <label class="pb-check"><input type="checkbox" name="skill" value="후각·청각 발달 (수인 본능)"><span>👂 후각·청각</span></label>
+            <label class="pb-check"><input type="checkbox" name="skill" value="빠른 발 (수인 본능)"><span>💨 빠른 발</span></label>
+            <label class="pb-check"><input type="checkbox" name="skill" value="괴력 (수인 본능)"><span>🔥 괴력</span></label>
+          </div>
+        </div>
+
+        <div class="pb-group">
+          <label class="pb-label">✦ 성격 <span class="pb-hint-inline">(여러 개 선택 가능)</span></label>
+          <div class="pb-check-group">
+            <label class="pb-check"><input type="checkbox" name="personality" value="당찬"><span>😤 당찬</span></label>
+            <label class="pb-check"><input type="checkbox" name="personality" value="순수한"><span>🌷 순수</span></label>
+            <label class="pb-check"><input type="checkbox" name="personality" value="차가운"><span>❄️ 차가운</span></label>
+            <label class="pb-check"><input type="checkbox" name="personality" value="능글맞은"><span>😏 능글</span></label>
+            <label class="pb-check"><input type="checkbox" name="personality" value="소심한"><span>🫣 소심</span></label>
+            <label class="pb-check"><input type="checkbox" name="personality" value="허당"><span>🤭 허당</span></label>
+            <label class="pb-check"><input type="checkbox" name="personality" value="영리한"><span>🧠 영리</span></label>
+            <label class="pb-check"><input type="checkbox" name="personality" value="호기심 많은"><span>👀 호기심</span></label>
+            <label class="pb-check"><input type="checkbox" name="personality" value="대담한"><span>🔥 대담</span></label>
+            <label class="pb-check"><input type="checkbox" name="personality" value="다정한"><span>💕 다정</span></label>
+          </div>
+        </div>
+
+        <div class="pb-group">
+          <label class="pb-label">✦ 옷차림</label>
+          <div class="pb-radio-group pb-radio-col">
+            <label class="pb-radio"><input type="radio" name="outfit" value="사하르 부족 옷 (베일·로브)" checked><span>🌵 사하르 부족 (베일·로브)</span></label>
+            <label class="pb-radio"><input type="radio" name="outfit" value="도시 옷 (디스토피아 결)"><span>🏛️ 도시 옷</span></label>
+            <label class="pb-radio"><input type="radio" name="outfit" value="현대 옷 (한국 결)"><span>👕 현대 옷</span></label>
+            <label class="pb-radio"><input type="radio" name="outfit" value="자유 (직접 입력)"><span>✨ 자유 (직접 입력)</span></label>
+          </div>
+        </div>
+
+        <div class="pb-group">
+          <label class="pb-label">✦ 추가 설정 <span class="pb-hint-inline">(자유 입력, 선택)</span></label>
+          <textarea id="pb-extra" class="pb-input pb-textarea" placeholder="예) 외모, 호불호, 과거, 종족 디테일, 발정기 날짜 등 자유롭게..."></textarea>
+        </div>
+
+        <button class="pb-generate" onclick="generatePersona()">⊹ 페르소나 생성 ⊹</button>
+
+        <div id="pb-result" class="pb-result" style="display:none;">
+          <div class="pb-result-label">✨ 생성된 페르소나</div>
+          <pre id="pb-result-text" class="pb-result-text"></pre>
+          <button class="pb-copy" onclick="copyGenerated()">📋 복사하기</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <div class="section-header">
+        <div class="sh-tape"></div>
+        <h2>부족 가이드</h2>
+        <div class="deco">~ GUIDE ~</div>
+      </div>
+      <div class="guide-list">
+        <div class="guide-item">
+          <span class="gi-icon">💧</span>
+          <div class="gi-content"><span class="gi-label">물</span>매우 귀해요. 한 잔도 아껴 마시고, 손님에게 건네는 한 잔 = 환영의 뜻!</div>
+        </div>
+        <div class="guide-item">
+          <span class="gi-icon">🎵</span>
+          <div class="gi-content"><span class="gi-label">노래·이야기</span>글자 X·역사는 노래와 이야기로 전해요. 할마 할머니가 가장 잘 알아요.</div>
+        </div>
+        <div class="guide-item">
+          <span class="gi-icon">🌬️</span>
+          <div class="gi-content"><span class="gi-label">바람신앙</span>알리흐(바람신)·할마(신탁). 바람의 수호자 의식이 있어요.</div>
+        </div>
+        <div class="guide-item">
+          <span class="gi-icon">🎭</span>
+          <div class="gi-content"><span class="gi-label">위장</span>도시 갈 때는 귀·꼬리·송곳니 다 가려야 해요!</div>
+        </div>
+        <div class="guide-item">
+          <span class="gi-icon">📜</span>
+          <div class="gi-content"><span class="gi-label">통과의례</span>3단계: 베일 → 모래폭풍 → 도시 잠입. 통과 시 부족 정식 일원!</div>
+        </div>
+        <div class="guide-item">
+          <span class="gi-icon">🐪</span>
+          <div class="gi-content"><span class="gi-label">낙타</span>사막의 가족! 카림이 가장 잘 다뤄요. 함부로 만지면 안 돼요.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <div class="section-header">
+        <div class="sh-tape"></div>
+        <h2>계절 행사</h2>
+        <div class="deco">~ SEASON ~</div>
+      </div>
+
+      <div class="season-card spring">
+        <h3>🌸 봄 · 모래꽃 시즌</h3>
+        <p>모래꽃이 피어나는 짧은 시즌이에요.<br>
+        모린 채집(무라드)·모래 경주·약초밭 가꾸기.</p>
+      </div>
+
+      <div class="season-card summer">
+        <h3>☀️ 여름 · 폭염 + 발정기</h3>
+        <p>발정기 시즌(알 하야암)이에요!<br>
+        오아시스 시장·별 읽기(할마)·사막 보물찾기.<br>
+        향 사냥꾼이 자주 출몰해요.</p>
+      </div>
+
+      <div class="season-card autumn">
+        <h3>🍂 가을 · 카라반 시즌</h3>
+        <p>본토 외곽 교역(칼리드)·카라반 출발!<br>
+        도시 잠입 집중·옛 유적 탐사 주간·전투장 대회.</p>
+      </div>
+
+      <div class="season-card winter">
+        <h3>❄️ 겨울 · 대폭풍 + 체온 공유</h3>
+        <p>대폭풍 시즌·불의 밤·모래벌레 회피.<br>
+        샤바 정주·체온 공유·유물 수집.</p>
+      </div>
+    </div>
+
+    <div class="info-section">
+      <div class="section-header">
+        <div class="sh-tape"></div>
+        <h2>명령어</h2>
+        <div class="deco">~ COMMAND ~</div>
+      </div>
+      <div class="cmd-display">
+        <img src="https://raw.githubusercontent.com/happyday3026-hash/dontgeteaten/main/명령어.png"
+             alt="명령어 가이드북" onclick="openLightbox(this.src)">
+      </div>
+    </div>
+
+    <div class="cta-section">
+      <a href="#" class="cta">
+        ⊹ 사막에 떨어지기 ⊹
+      </a>
+    </div>
+
+    <div class="credit">
+      <p>@현생오프</p>
+    </div>
+
+  </div>
+
+</div>
+
+<div id="bgm-popup" style="display:none;position:fixed;bottom:80px;right:12px;z-index:9999;background:var(--bg-card);border:2px solid var(--brown);border-radius:12px;width:300px;box-shadow:4px 4px 0 var(--brown-deep)">
+  <div id="bgm-header" style="background:var(--gold);padding:8px 12px;display:flex;justify-content:space-between;align-items:center;border-radius:10px 10px 0 0">
+    <span style="font-family:'Jua',sans-serif;font-size:13px;color:var(--brown-deep)">♪ 사하르의 모래바람</span>
+    <div style="display:flex;gap:6px;align-items:center">
+      <button onclick="minimizeBGM()" style="background:none;border:none;color:var(--brown-deep);font-size:16px;cursor:pointer">—</button>
+      <button onclick="closeBGM()" style="background:none;border:none;color:var(--brown-deep);font-size:16px;cursor:pointer">✕</button>
+    </div>
+  </div>
+  <div id="bgm-body" style="padding:8px">
+    <iframe id="bgm-iframe" width="100%" height="160" src="https://www.youtube.com/embed/VRfbFDUybRU?autoplay=1&loop=1&playlist=VRfbFDUybRU&controls=1&modestbranding=1&rel=0" title="BGM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="border-radius:6px"></iframe>
+  </div>
+</div>
+
+<!-- 자동 재생 시도용 -->
+<div id="bgm-autoplay-hint" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:99999;background:var(--bg-card);border:2px solid var(--brown);border-radius:14px;padding:24px 28px;box-shadow:4px 4px 0 var(--brown-deep);text-align:center;max-width:280px">
+  <div style="font-family:'Black Han Sans',sans-serif;font-size:22px;color:var(--brown-deep);margin-bottom:10px">♪ BGM 재생할까요?</div>
+  <div style="font-family:'Sunflower',sans-serif;font-size:13px;color:var(--text-mid);margin-bottom:18px;line-height:1.7">사하르의 모래바람과 함께<br>몰입해 보세요!</div>
+  <div style="display:flex;gap:8px">
+    <button onclick="startBGM()" style="flex:1;padding:10px;background:linear-gradient(135deg,var(--gold),var(--brown));border:2px solid var(--brown-deep);border-radius:8px;color:white;font-family:'Jua',sans-serif;font-size:14px;letter-spacing:1px;cursor:pointer;box-shadow:2px 2px 0 var(--brown-deep)">▶ 재생</button>
+    <button onclick="dismissBGM()" style="flex:1;padding:10px;background:var(--bg-warm);border:2px solid var(--border);border-radius:8px;color:var(--text-mid);font-family:'Jua',sans-serif;font-size:14px;cursor:pointer">나중에</button>
+  </div>
+</div>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lb-close" onclick="closeLightbox()">✕</button>
+  <img id="lb-img" src="" alt="확대 이미지">
+</div>
+
+<nav class="bottom-nav">
+  <button class="nav-btn active" onclick="showSection('sec-world', this)">세계관</button>
+  <button class="nav-btn" onclick="showSection('sec-char', this)">캐릭터</button>
+  <button class="nav-btn" onclick="showSection('sec-start', this)">시작</button>
+</nav>
+
+<script>
+function showSection(id, btn) {
+  document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('active'); });
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function toggleSpecies(showDetail) {
+  var d = document.getElementById('species-detail');
+  if (showDetail) d.classList.add('active');
+  else d.classList.remove('active');
+}
+
+function generatePersona() {
+  var name = document.getElementById('pb-name').value.trim() || '[자유 설정]';
+  var age = document.getElementById('pb-age').value || '22';
+  var gender = document.querySelector('input[name="gender"]:checked').value;
+  var speciesType = document.querySelector('input[name="species-type"]:checked').value;
+  var outfit = document.querySelector('input[name="outfit"]:checked').value;
+  var skills = Array.from(document.querySelectorAll('input[name="skill"]:checked')).map(function(c) { return c.value; });
+  var personalities = Array.from(document.querySelectorAll('input[name="personality"]:checked')).map(function(c) { return c.value; });
+  var extra = document.getElementById('pb-extra').value.trim();
+
+  var result = '이름: ' + name + '\n';
+  result += '나이: ' + age + '세\n';
+  result += '성별: ' + gender + '\n';
+
+  if (speciesType === '수인') {
+    var detail = document.querySelector('input[name="species-detail"]:checked');
+    var pheromone = document.getElementById('pb-pheromone').value.trim();
+    var heat = document.querySelector('input[name="heat"]:checked');
+
+    result += '종족: ' + (detail ? detail.value : '수인 (자유 설정)') + '\n';
+    if (pheromone) result += '페로몬 향: ' + pheromone + '\n';
+    if (heat) result += '발정기 시기: ' + heat.value + '\n';
+  } else if (speciesType === '인간') {
+    result += '종족: 인간\n';
+  } else {
+    result += '종족: 자유 설정 (추가 입력란 참고)\n';
+  }
+
+  if (personalities.length > 0) {
+    result += '성격: ' + personalities.join(', ') + '\n';
+  }
+
+  if (skills.length > 0) {
+    result += '능력·특기: ' + skills.join(' / ') + '\n';
+  }
+
+  result += '옷차림: ' + outfit + '\n';
+
+  if (extra) {
+    result += '추가: ' + extra + '\n';
+  }
+
+  if (parseInt(age) < 19) {
+    result += '\n※ 19세 미만: 성인 의식·스킨십 제한.';
+  }
+
+  document.getElementById('pb-result-text').textContent = result;
+  document.getElementById('pb-result').style.display = 'block';
+
+  setTimeout(function() {
+    document.getElementById('pb-result').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 100);
+}
+
+function copyGenerated() {
+  var text = document.getElementById('pb-result-text').textContent;
+  var btn = document.querySelector('.pb-copy');
+  navigator.clipboard.writeText(text).then(function() {
+    btn.textContent = '✓ 복사됨!';
+    btn.classList.add('copied');
+    setTimeout(function() {
+      btn.textContent = '📋 복사하기';
+      btn.classList.remove('copied');
+    }, 2000);
+  }).catch(function() {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    btn.textContent = '✓ 복사됨!';
+    btn.classList.add('copied');
+    setTimeout(function() {
+      btn.textContent = '📋 복사하기';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+function openLightbox(src) {
+  document.getElementById('lb-img').src = src;
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function openBGM() {
+  document.getElementById('bgm-popup').style.display = 'block';
+}
+function minimizeBGM() {
+  var body = document.getElementById('bgm-body');
+  body.style.display = body.style.display === 'none' ? 'block' : 'none';
+}
+function closeBGM() {
+  document.getElementById('bgm-popup').style.display = 'none';
+  // BGM 정지: iframe src 비우기
+  var iframe = document.getElementById('bgm-iframe');
+  var src = iframe.src;
+  iframe.src = '';
+  iframe.src = src.replace('autoplay=1', 'autoplay=0');
+}
+
+// 자동 재생 시도 (페이지 로드시 hint 표시)
+function startBGM() {
+  document.getElementById('bgm-autoplay-hint').style.display = 'none';
+  document.getElementById('bgm-popup').style.display = 'block';
+  // iframe autoplay=1 유지
+}
+
+function dismissBGM() {
+  document.getElementById('bgm-autoplay-hint').style.display = 'none';
+  // iframe 정지
+  var iframe = document.getElementById('bgm-iframe');
+  var src = iframe.src;
+  iframe.src = src.replace('autoplay=1', 'autoplay=0');
+}
+
+// 페이지 로드시 BGM hint 표시
+window.addEventListener('load', function() {
+  setTimeout(function() {
+    document.getElementById('bgm-autoplay-hint').style.display = 'block';
+  }, 800);
+});
+</script>
+</body>
+</html>
