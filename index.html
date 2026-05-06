@@ -1423,6 +1423,7 @@ body::before {
           <li><span class="hl">1단계</span> = 베일 받기 (부족 인정 시작)</li>
           <li><span class="hl">2단계</span> = 모래폭풍 통과 (자격 증명)</li>
           <li><span class="hl">3단계</span> = 도시 잠입 (정찰병)</li>
+          <li>1→2→3 순서대로 진행돼요!</li>
           <li>3단계 다 통과 = 부족 정식 일원!</li>
         </ul>
 
@@ -1456,6 +1457,42 @@ body::before {
           <li>수인 감별기·향 사냥꾼 조심!</li>
           <li>발각 시 노예/전투장 직행 ⚠️</li>
         </ul>
+      </div>
+
+      <!-- 모래폭squall 시스템 -->
+      <div class="system-card tape-l">
+        <h3><span class="icon">🌪️</span>모래폭풍 시스템</h3>
+        <div class="system-sub">사막의 진짜 위험!</div>
+
+        <h4>⏰ 자동 발동</h4>
+        <ul>
+          <li>주 1~2회 (수요일 / 일요일)</li>
+          <li>요일에 자동 트리거</li>
+          <li>같은 요일 연속 3번 발동 X</li>
+        </ul>
+
+        <h4>💨 강도 (자율 발동)</h4>
+        <ul>
+          <li><span class="hl">소</span> = 70% · 짧고 약해요</li>
+          <li><span class="hl">중</span> = 25% · 천막 대기 필요</li>
+          <li><span class="hl">대</span> = 5% · 격리·1~2일 지속</li>
+        </ul>
+
+        <h4>🦊 셋의 반응</h4>
+        <ul>
+          <li>자이드 = 정찰 즉시 복귀</li>
+          <li>칼리드 = 부족 회의 소집</li>
+          <li>카림 = 물주머니 챙기기·U 보호</li>
+        </ul>
+
+        <h4>✨ 종료</h4>
+        <ul>
+          <li>시간 경과 시 자동 종료</li>
+          <li>유저 개입 X</li>
+          <li>하늘 = ☀️ 자동 복귀</li>
+        </ul>
+
+        <p class="note">※ 통과의례 2단계 = 대폭풍 통과! 자이드 동행 추천 ⭐</p>
       </div>
 
     </div>
@@ -1506,8 +1543,7 @@ body::before {
 
         <div class="pb-group">
           <label class="pb-label">✦ 나이</label>
-          <input type="number" id="pb-age" class="pb-input" placeholder="19 이상 추천" min="15" max="99" value="22">
-          <p class="pb-hint">성인 의식·스킨십은 19세 이상부터 가능해요</p>
+          <input type="number" id="pb-age" class="pb-input" placeholder="자유롭게 입력" min="15" max="99" value="22">
         </div>
 
         <div class="pb-group">
@@ -1659,27 +1695,43 @@ body::before {
 
       <div class="season-card spring">
         <h3>🌸 봄 · 모래꽃 시즌</h3>
-        <p>모래꽃이 피어나는 짧은 시즌이에요.<br>
-        모린 채집(무라드)·모래 경주·약초밭 가꾸기.</p>
+        <p>짧지만 사막이 가장 아름다운 계절!<br>
+        🌿 모린 약초 채집 (무라드와 함께)<br>
+        🌱 약초밭 가꾸기<br>
+        🏃 모래 경주 대회 (셋과 출전!)<br>
+        🌬️ 수호자 의식 (할마 신탁)<br>
+        🌧️ 봄비 축제 (월 1회)</p>
       </div>
 
       <div class="season-card summer">
         <h3>☀️ 여름 · 폭염 + 발정기</h3>
-        <p>발정기 시즌(알 하야암)이에요!<br>
-        오아시스 시장·별 읽기(할마)·사막 보물찾기.<br>
-        향 사냥꾼이 자주 출몰해요.</p>
+        <p>가장 뜨거운 시즌·발정기 알 하야암!<br>
+        🔥 폭염 (체온 공유 결)<br>
+        🏪 오아시스 시장 (교역·요리 경연)<br>
+        ⭐ 별 읽기 (할마와 사막 밤하늘)<br>
+        💎 사막 보물찾기 (셋과 모험)<br>
+        🌸 <span class="hl">발정기 시즌 (알 하야암)</span><br>
+        ⚠️ 향 사냥꾼 출몰 ↑</p>
       </div>
 
       <div class="season-card autumn">
         <h3>🍂 가을 · 카라반 시즌</h3>
-        <p>본토 외곽 교역(칼리드)·카라반 출발!<br>
-        도시 잠입 집중·옛 유적 탐사 주간·전투장 대회.</p>
+        <p>모험의 계절! 도시 잠입 가능 시기!<br>
+        🐪 본토 외곽 교역 (칼리드와 카라반)<br>
+        🎭 도시 잠입 (위장 훈련)<br>
+        📜 옛 유적 탐사 주간 (저주·괴물!)<br>
+        ⚔️ 전투장 대회 (단 만남?)<br>
+        🌧️ 가을비 축제 (월 1회)</p>
       </div>
 
       <div class="season-card winter">
         <h3>❄️ 겨울 · 대폭풍 + 체온 공유</h3>
-        <p>대폭풍 시즌·불의 밤·모래벌레 회피.<br>
-        샤바 정주·체온 공유·유물 수집.</p>
+        <p>샤바 정주·셋과 가까워지는 시즌!<br>
+        🌪️ 대폭풍 (천막 격리·셋과 함께)<br>
+        🔥 불의 밤 (부족 축제)<br>
+        🐛 모래벌레 회피 (사냥 모험)<br>
+        🏺 유물 수집<br>
+        💕 체온 공유 (슬로우번 결!)</p>
       </div>
     </div>
 
