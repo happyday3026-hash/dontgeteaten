@@ -527,6 +527,18 @@ body::before {
   margin-bottom: 6px;
   font-family: 'Sunflower', sans-serif;
 }
+.npc-place {
+  font-family: 'Gowun Dodum', sans-serif;
+  font-size: 11px;
+  color: var(--brown-deep);
+  background: var(--bg-warm);
+  padding: 4px 8px;
+  border-radius: 8px;
+  margin-bottom: 6px;
+  display: inline-block;
+  font-weight: 600;
+  letter-spacing: -0.2px;
+}
 .npc-desc {
   font-size: 12.5px;
   color: var(--text);
@@ -1256,10 +1268,10 @@ body::before {
           <div class="char-quote">"좋네, 너. 오늘부터 내가 챙긴다."</div>
           <p class="char-desc">
             <span class="hl">대형견 결</span> 맏형이에요.<br>
-            천하태평하고 다정해요.<br>
+            천하태평하고 능글맞은 마이페이스.<br>
             본인 덩치를 인지 못해서 자꾸 어딘가에 부딪혀요.<br><br>
-            큰 손으로 작은 거 다루는 게 의외로 능숙해요.<br>
-            부족에서 가장 신뢰받는 사냥꾼이랍니다.
+            천진난만한 야성에 본능적 직관력!<br>
+            혼자가 편하지만 내 사람한테는 헌신적이랍니다.
           </p>
           <div class="char-tags">
             <span>대형견</span>
@@ -1285,31 +1297,36 @@ body::before {
           <div class="npc-img has-image"><img src="https://raw.githubusercontent.com/happyday3026-hash/dontgeteaten/main/할마.jpg" alt="할마" onclick="openLightbox(this.src)"></div>
           <div class="npc-name">할마</div>
           <div class="npc-role">신모 · 900세</div>
+          <div class="npc-place">📍 샤바 신모 천막</div>
           <div class="npc-desc">백발 보라 베일. 바람 신탁을 내려요.</div>
         </div>
         <div class="npc-card">
           <div class="npc-img has-image"><img src="https://raw.githubusercontent.com/happyday3026-hash/dontgeteaten/main/세이크.jpg" alt="세이크" onclick="openLightbox(this.src)"></div>
           <div class="npc-name">세이크</div>
-          <div class="npc-role">수장 · 40세</div>
+          <div class="npc-role">수장 · 50세</div>
+          <div class="npc-place">📍 샤바 수장 천막</div>
           <div class="npc-desc">은백수염. 차갑고 공정한 결정권자.</div>
         </div>
         <div class="npc-card">
           <div class="npc-img has-image"><img src="https://raw.githubusercontent.com/happyday3026-hash/dontgeteaten/main/무라드.jpg" alt="무라드" onclick="openLightbox(this.src)"></div>
           <div class="npc-name">무라드</div>
           <div class="npc-role">약초사 · 35세</div>
+          <div class="npc-place">📍 샤바 약초방</div>
           <div class="npc-desc">녹색 베일. 약초 만들어 주는 다정한 분.</div>
         </div>
         <div class="npc-card">
           <div class="npc-img has-image"><img src="https://raw.githubusercontent.com/happyday3026-hash/dontgeteaten/main/사라.jpg" alt="사라" onclick="openLightbox(this.src)"></div>
           <div class="npc-name">사라</div>
           <div class="npc-role">꼬마 · 10세</div>
-          <div class="npc-desc">맨발 흑발. 호기심 폭발하는 부족 마스코트.</div>
+          <div class="npc-place">📍 샤바 어디든</div>
+          <div class="npc-desc">맨발 흑발. 애교 많고 정보 누설하는 마스코트.</div>
         </div>
         <div class="npc-card">
           <div class="npc-img has-image"><img src="https://raw.githubusercontent.com/happyday3026-hash/dontgeteaten/main/사미르.jpg" alt="사미르" onclick="openLightbox(this.src)"></div>
           <div class="npc-name">사미르</div>
-          <div class="npc-role">한량 · 25세</div>
-          <div class="npc-desc">검은 곱슬·황금 귀고리. 페넥 수인.</div>
+          <div class="npc-role">여우 수인 · 25세</div>
+          <div class="npc-place">📍 샤바·오아시스</div>
+          <div class="npc-desc">검은 곱슬·황금 귀고리. U에게 직접 들이대요.</div>
         </div>
       </div>
 
@@ -1318,13 +1335,15 @@ body::before {
         <div class="npc-card">
           <div class="npc-img has-image"><img src="https://raw.githubusercontent.com/happyday3026-hash/dontgeteaten/main/자흐라.jpg" alt="자흐라" onclick="openLightbox(this.src)"></div>
           <div class="npc-name">자흐라</div>
-          <div class="npc-role">영양 수인 · 27세</div>
-          <div class="npc-desc">금발 푸른 눈. 카림 정략 약혼자.</div>
+          <div class="npc-role">가젤 수인 · 27세</div>
+          <div class="npc-place">📍 동맹 부족 · 카라반 만남</div>
+          <div class="npc-desc">금발 푸른 눈. 카림 정략 약혼자(카림은 무자각).</div>
         </div>
         <div class="npc-card">
           <div class="npc-img has-image"><img src="https://raw.githubusercontent.com/happyday3026-hash/dontgeteaten/main/하리스.jpg" alt="하리스" onclick="openLightbox(this.src)"></div>
           <div class="npc-name">하리스</div>
           <div class="npc-role">자칼 수인 · 26세</div>
+          <div class="npc-place">📍 자흐라 옆 (호위)</div>
           <div class="npc-desc">검은 피부 황금 눈. 강직하고 예의 바름.</div>
         </div>
       </div>
@@ -1335,30 +1354,35 @@ body::before {
           <div class="npc-img has-image"><img src="https://raw.githubusercontent.com/happyday3026-hash/dontgeteaten/main/카심.jpg" alt="카심" onclick="openLightbox(this.src)"></div>
           <div class="npc-name">카심</div>
           <div class="npc-role">영주 · 50세</div>
+          <div class="npc-place">📍 알마디나 영주 궁전</div>
           <div class="npc-desc">흑발+보라·검은정장. 전투장 운영자.</div>
         </div>
         <div class="npc-card">
           <div class="npc-img has-image"><img src="https://raw.githubusercontent.com/happyday3026-hash/dontgeteaten/main/파트마.jpg" alt="파트마" onclick="openLightbox(this.src)"></div>
           <div class="npc-name">파트마</div>
           <div class="npc-role">술집주인 · 45세</div>
+          <div class="npc-place">📍 알마디나 술집</div>
           <div class="npc-desc">붉은 머리·담배. 잠입자 첫 거점.</div>
         </div>
         <div class="npc-card">
           <div class="npc-img has-image"><img src="https://raw.githubusercontent.com/happyday3026-hash/dontgeteaten/main/유세프.jpg" alt="유세프" onclick="openLightbox(this.src)"></div>
           <div class="npc-name">유세프</div>
           <div class="npc-role">위조장인 · 35세</div>
+          <div class="npc-place">📍 알마디나 빈민가 지하방</div>
           <div class="npc-desc">안경·잉크 손. 위조 배급증을 만들어요.</div>
         </div>
         <div class="npc-card">
           <div class="npc-img has-image"><img src="https://raw.githubusercontent.com/happyday3026-hash/dontgeteaten/main/카스파르.jpg" alt="카스파르" onclick="openLightbox(this.src)"></div>
           <div class="npc-name">카스파르</div>
           <div class="npc-role">헌병대장 · 38세</div>
+          <div class="npc-place">📍 알마디나 헌병대 (위협!)</div>
           <div class="npc-desc">금발 검은 제복. 수인 추적 전문.</div>
         </div>
         <div class="npc-card">
           <div class="npc-img has-image"><img src="https://raw.githubusercontent.com/happyday3026-hash/dontgeteaten/main/단.jpg" alt="단" onclick="openLightbox(this.src)"></div>
           <div class="npc-name">단</div>
           <div class="npc-role">도망자 · 24세</div>
+          <div class="npc-place">📍 알 무사라아 전투장</div>
           <div class="npc-desc">검은 피부·전투 흉터. 말 적고 강함.</div>
         </div>
       </div>
@@ -1369,18 +1393,21 @@ body::before {
           <div class="npc-img has-image"><img src="https://raw.githubusercontent.com/happyday3026-hash/dontgeteaten/main/라스.jpg" alt="라스" onclick="openLightbox(this.src)"></div>
           <div class="npc-name">라스</div>
           <div class="npc-role">도적두목 · 35세</div>
+          <div class="npc-place">📍 황무지 카라반 길</div>
           <div class="npc-desc">뺨 흉터. 황무지 카라반을 노려요.</div>
         </div>
         <div class="npc-card">
           <div class="npc-img has-image"><img src="https://raw.githubusercontent.com/happyday3026-hash/dontgeteaten/main/자이눕.jpg" alt="자이눕" onclick="openLightbox(this.src)"></div>
           <div class="npc-name">자이눕</div>
           <div class="npc-role">이야기꾼 · 30세</div>
+          <div class="npc-place">📍 황무지·오아시스 (떠도는 결)</div>
           <div class="npc-desc">종족 모름. 푸른 천. 격언으로 말해요.</div>
         </div>
         <div class="npc-card">
           <div class="npc-img has-image"><img src="https://raw.githubusercontent.com/happyday3026-hash/dontgeteaten/main/루카.jpg" alt="루카" onclick="openLightbox(this.src)"></div>
           <div class="npc-name">루카</div>
           <div class="npc-role">정보꾼 · 28세 · 인간</div>
+          <div class="npc-place">📍 알마디나 도시 거리</div>
           <div class="npc-desc">금발·창백 피부. 시건방+능글.</div>
         </div>
       </div>
